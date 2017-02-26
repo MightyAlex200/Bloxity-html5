@@ -32,7 +32,7 @@ class Bullet extends PIXI.Sprite {
       if (stage.children[n] instanceof Enemy){
         if(isIntersecting(stage.children[n],this)){
           createjs.Sound.play(1);
-          stage.children[0].score++;
+          myPlayer.score++;
           app.stage.removeChild(stage.children[n]);
           app.stage.removeChild(this);
         }
