@@ -1,0 +1,10 @@
+*{
+  background-color: black;
+}
+canvas {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  margin-top: -256;
+  margin-left: -256;
+}
