@@ -28,11 +28,12 @@ class Bullet extends PIXI.Sprite {
         break;
     }
 
-    for (n in app.stage.children){
-      if (app.stage.children[n] instanceof Enemy){
-        if(isIntersecting(app.stage.children[n],this)){
+    for (n in stage.children){
+      if (stage.children[n] instanceof Enemy){
+        if(isIntersecting(stage.children[n],this)){
           createjs.Sound.play(1);
-          app.stage.removeChild(app.stage.children[n]);
+          stage.children[0].score++;
+          app.stage.removeChild(stage.children[n]);
         }
       }
     }

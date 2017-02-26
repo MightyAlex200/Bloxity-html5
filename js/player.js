@@ -2,6 +2,7 @@ class Player extends PIXI.Sprite {
 
   constructor(sprite,speed){
       super(sprite);
+      this.score = 0;
       this.position.set(240,240)
       this.speed = speed || 1;
       this.direction = 0;

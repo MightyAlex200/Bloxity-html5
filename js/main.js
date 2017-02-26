@@ -18,7 +18,10 @@ function start(){
 
   myPlayer = new Player(PIXI.loader.resources["res/img/player.png"].texture,5);
 
+  scoreDisplay = new PIXI.Text('Loading...', {font: "25px Arial", fill: "black"});
+
   app.stage.addChild(myPlayer);
+  app.stage.addChild(scoreDisplay);
 
   mainloop();
 }
@@ -31,6 +34,8 @@ function mainloop(){
     addEnemy();
     frames = 0;
   }
+
+  scoreDisplay.text = "Score: " + app.stage.children[0]/*player*/.score;
 
   for (n in app.stage.children){
     obj = app.stage.children[n];
@@ -60,4 +65,7 @@ function addEnemy() {
 function youdied(){
   addEnemy = ()=>{};
   app.stage.addChild(new PIXI.Sprite(PIXI.loader.resources["res/img/youdied.png"].texture));
+  scoreDisplay.parent.addChild(scoreDisplay);
+  scoreDisplay.setStyle({fill:"white"});
+  scoreDisplay.position.set(256-scoreDisplay.width/2,341);
 }
