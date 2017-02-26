@@ -34,6 +34,7 @@ class Bullet extends PIXI.Sprite {
           createjs.Sound.play(1);
           stage.children[0].score++;
           app.stage.removeChild(stage.children[n]);
+          app.stage.removeChild(this);
         }
       }
     }
