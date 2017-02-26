@@ -2,7 +2,8 @@ var app = new PIXI.Application(512,512,{backgroundColor: 0xeeeeee});
 
 document.body.appendChild(app.view);
 
-var frames = 0;
+var enemyframes = 0;
+var healthframes = 0;
 var pause = false;
 var fp = false;
 
@@ -11,7 +12,8 @@ PIXI.loader.add([
     "res/img/bullet.png",
     "res/img/enemy.png",
     "res/img/youdied.png",
-    "res/img/background.png"
+    "res/img/background.png",
+    "res/img/healthpack.png"
   ]).load(start);
 
 function start(){
@@ -72,11 +74,17 @@ function mainloop(){
     pauseDisplay.visible = false;
     pauseDisplayText.visible = false;
 
-    frames++;
+    enemyframes++;
+    healthframes++;
 
-    if(frames>=30){
+    if(enemyframes>=30){
       addEnemy();
-      frames = 0;
+      enemyframes = 0;
+    }
+
+    if(healthframes >= 1800){
+      addHealthpack();
+      healthframes = 0;
     }
 
     scoreDisplay.text = "Score: " + myPlayer.score + "\nBest: " + Math.max(myPlayer.score,best);
@@ -115,6 +123,15 @@ function addEnemy() {
     (randomInt(0,512) * (1-(wall % 2))) + (wall==3 ? 512-32:0)
   ));
 
+
+}
+
+function addHealthpack() {
+
+  app.stage.addChild(new Healthpack(PIXI.loader.resources["res/img/healthpack.png"].texture,
+    randomInt(0,512),
+    randomInt(0,512)
+  ));
 
 }
 
