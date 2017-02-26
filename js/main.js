@@ -3,6 +3,8 @@ var app = new PIXI.Application(512,512,{backgroundColor: 0xeeeeee});
 document.body.appendChild(app.view);
 
 var frames = 0;
+var pause = false;
+var fp = false;
 
 PIXI.loader.add([
     "res/img/player.png",
@@ -20,28 +22,61 @@ function start(){
 
   scoreDisplay = new PIXI.Text('Loading...', {font: "25px Arial", fill: "black"});
 
+  pauseDisplay = new PIXI.Graphics();
+  pauseDisplay.beginFill(0x000000,.7);
+  pauseDisplay.drawRect(0,0,512,512);
+  pauseDisplayText = new PIXI.Text("The game is paused\nPress esc to resume", {font: "bold 50px Arial", fill: "black"})
+  pauseDisplayText.position.set(256-pauseDisplayText.width/2, 256-pauseDisplayText.height/2);
+
+
   app.stage.addChild(myPlayer);
   app.stage.addChild(scoreDisplay);
+
+  app.stage.addChild(pauseDisplay);
+  app.stage.addChild(pauseDisplayText);
+  
+  setInterval(()=>{pause = pause?pause:document.hidden;},100)
 
   mainloop();
 }
 
+
 function mainloop(){
 
-  frames++;
+  s=fp? !document.keyboard[27]:document.keyboard[27];
+  fp=document.keyboard[27];
 
-  if(frames>=60){
-    addEnemy();
-    frames = 0;
+  if(s==true && document.keyboard[27] != true){
+    pause = !pause;
   }
 
-  scoreDisplay.text = "Score: " + app.stage.children[0]/*player*/.score;
 
-  for (n in app.stage.children){
-    obj = app.stage.children[n];
-    if (obj.update) {
-      obj.update(app.stage);
+  if(!pause){
+
+    pauseDisplay.visible = false;
+    pauseDisplayText.visible = false;
+
+    frames++;
+
+    if(frames>=60){
+      addEnemy();
+      frames = 0;
     }
+
+    scoreDisplay.text = "Score: " + app.stage.children[0]/*player*/.score;
+
+    for (n in app.stage.children){
+      obj = app.stage.children[n];
+      if (obj.update) {
+        obj.update(app.stage);
+      }
+    }
+
+  }else{
+    pauseDisplay.parent.addChild(pauseDisplay);
+    pauseDisplay.visible = true;
+    pauseDisplayText.parent.addChild(pauseDisplayText);
+    pauseDisplayText.visible = true;
   }
 
   app.render();
