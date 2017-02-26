@@ -70,7 +70,7 @@ function mainloop(){
 
     frames++;
 
-    if(frames>=60){
+    if(frames>=30){
       addEnemy();
       frames = 0;
     }
