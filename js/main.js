@@ -10,7 +10,8 @@ PIXI.loader.add([
     "res/img/player.png",
     "res/img/bullet.png",
     "res/img/enemy.png",
-    "res/img/youdied.png"
+    "res/img/youdied.png",
+    "res/img/background.png"
   ]).load(start);
 
 function start(){
@@ -35,6 +36,8 @@ function start(){
   pauseDisplayText = new PIXI.Text("The game is paused\nPress esc to resume", {font: "bold 50px Arial", fill: "black"})
   pauseDisplayText.position.set(256-pauseDisplayText.width/2, 256-pauseDisplayText.height/2);
 
+  backgroundImage = new PIXI.Sprite(PIXI.loader.resources["res/img/background.png"].texture);
+  app.stage.addChild(backgroundImage);
 
   app.stage.addChild(myPlayer);
   app.stage.addChild(scoreDisplay);
@@ -72,12 +75,12 @@ function mainloop(){
       frames = 0;
     }
 
-    scoreDisplay.text = "Score: " + app.stage.children[0]/*player*/.score;
+    scoreDisplay.text = "Score: " + myPlayer.score;
 
-    healthDisplay.text = "Health: " + app.stage.children[0].health + "/100";
+    healthDisplay.text = "Health: " + myPlayer.health + "/100";
     healthDisplay.position.set(512-healthDisplay.width,0);
     healthBar.clear();
-    healthBar.drawRect(512-177,25,app.stage.children[0].health*1.77,25);
+    healthBar.drawRect(512-177,25,myPlayer.health*1.77,25);
 
     for (n in app.stage.children){
       obj = app.stage.children[n];
