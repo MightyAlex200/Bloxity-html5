@@ -49,6 +49,10 @@ function start(){
 
   setInterval(()=>{pause = pause?pause:document.hidden;},100)
 
+  best = parseInt(getCookie("best"));
+
+  if(isNaN(best)){best=0}
+
   mainloop();
 }
 
@@ -75,7 +79,7 @@ function mainloop(){
       frames = 0;
     }
 
-    scoreDisplay.text = "Score: " + myPlayer.score;
+    scoreDisplay.text = "Score: " + myPlayer.score + "\nBest: " + Math.max(myPlayer.score,best);
 
     healthDisplay.text = "Health: " + myPlayer.health + "/100";
     healthDisplay.position.set(512-healthDisplay.width,0);
@@ -117,6 +121,10 @@ function addEnemy() {
 function youdied(){
   addEnemy = ()=>{};
   app.stage.addChild(new PIXI.Sprite(PIXI.loader.resources["res/img/youdied.png"].texture));
+  if(myPlayer.score > best){
+    document.cookie="best=" + myPlayer.score;
+    console.log("wrote score");
+  }
   scoreDisplay.parent.addChild(scoreDisplay);
   scoreDisplay.setStyle({fill:"white"});
   scoreDisplay.position.set(256-scoreDisplay.width/2,341);
