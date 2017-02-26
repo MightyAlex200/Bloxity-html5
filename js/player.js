@@ -1,0 +1,37 @@
+class Player extends PIXI.Sprite {
+
+  constructor(sprite,speed){
+      super(sprite);
+      this.speed = speed || 1;
+      this.direction = 0;
+      this.health = 100;
+      this.stopped = false;
+  }
+
+  update(stage){
+
+    if(this.health <= 0){
+      youdied();
+      this.health = 100000
+      this.stopped = true;
+      createjs.Sound.play(2);
+      setTimeout(location.reload.bind(location),3000);
+    }
+
+    if (this.stopped==false){
+      this.x += document.keyboard[39] ? this.speed:document.keyboard[37] ? -this.speed:0;
+      this.y += document.keyboard[40] ? this.speed:document.keyboard[38] ? -this.speed:0;
+      this.direction =
+        document.keyboard[37] ? 0:
+        document.keyboard[38] ? 1:
+        document.keyboard[39] ? 2:
+        document.keyboard[40] ? 3:
+        this.direction;
+      if(document.keyboard[32]){
+        var b = new Bullet(PIXI.loader.resources["res/img/bullet.png"].texture, this.direction, this.x, this.y);
+        stage.addChild(b);
+      }
+    }
+  }
+
+}

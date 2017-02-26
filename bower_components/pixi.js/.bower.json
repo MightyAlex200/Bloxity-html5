@@ -1,0 +1,28 @@
+{
+  "name": "pixi.js",
+  "main": "dist/pixi.min.js",
+  "ignore": [
+    "**/.*",
+    "docs",
+    "node_modules",
+    "bower_components",
+    "test",
+    "scripts",
+    "bower.json",
+    "inch.json"
+  ],
+  "dependencies": {},
+  "devDependencies": {},
+  "homepage": "https://github.com/GoodBoyDigital/pixi.js",
+  "version": "4.4.0",
+  "_release": "4.4.0",
+  "_resolution": {
+    "type": "version",
+    "tag": "v4.4.0",
+    "commit": "42ac88b009999422bd8c34d3b9c1ccf93bb0d0df"
+  },
+  "_source": "https://github.com/GoodBoyDigital/pixi.js.git",
+  "_target": "^4.4.0",
+  "_originalSource": "pixi",
+  "_direct": true
+}
