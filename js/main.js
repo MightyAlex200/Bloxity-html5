@@ -22,6 +22,13 @@ function start(){
 
   scoreDisplay = new PIXI.Text('Loading...', {font: "25px Arial", fill: "black"});
 
+  healthDisplay = new PIXI.Text('Health: ', {font: "25px Arial", fill: "black"});
+  healthDisplay.position.set(512-healthDisplay.width,0);
+
+  healthBar = new PIXI.Graphics();
+  healthBar.beginFill(0xFF0000);
+  healthBar.drawRect(512-177,25,177,25);
+
   pauseDisplay = new PIXI.Graphics();
   pauseDisplay.beginFill(0x000000,.7);
   pauseDisplay.drawRect(0,0,512,512);
@@ -31,10 +38,12 @@ function start(){
 
   app.stage.addChild(myPlayer);
   app.stage.addChild(scoreDisplay);
+  app.stage.addChild(healthDisplay);
+  app.stage.addChild(healthBar);
 
   app.stage.addChild(pauseDisplay);
   app.stage.addChild(pauseDisplayText);
-  
+
   setInterval(()=>{pause = pause?pause:document.hidden;},100)
 
   mainloop();
@@ -64,6 +73,11 @@ function mainloop(){
     }
 
     scoreDisplay.text = "Score: " + app.stage.children[0]/*player*/.score;
+
+    healthDisplay.text = "Health: " + app.stage.children[0].health + "/100";
+    healthDisplay.position.set(512-healthDisplay.width,0);
+    healthBar.clear();
+    healthBar.drawRect(512-177,25,app.stage.children[0].health*1.77,25);
 
     for (n in app.stage.children){
       obj = app.stage.children[n];
