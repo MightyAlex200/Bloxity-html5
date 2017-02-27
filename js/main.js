@@ -144,6 +144,7 @@ function addHealthpack() {
 
 function youdied(){
   addEnemy = ()=>{};
+  addHealthpack = ()=>{};
   app.stage.addChild(new PIXI.Sprite(PIXI.loader.resources["res/img/youdied.png"].texture));
   if(myPlayer.score > best){
     document.cookie="best=" + myPlayer.score;
