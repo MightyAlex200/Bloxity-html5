@@ -13,7 +13,8 @@ PIXI.loader.add([
     "res/img/enemy.png",
     "res/img/youdied.png",
     "res/img/background.png",
-    "res/img/healthpack.png"
+    "res/img/healthpack.png",
+    "res/img/ammopack.png"
   ]).load(start);
 
 function start(){
@@ -23,10 +24,13 @@ function start(){
 
   myPlayer = new Player(PIXI.loader.resources["res/img/player.png"].texture,5);
 
-  scoreDisplay = new PIXI.Text('Loading...', {font: "25px Arial", fill: "black"});
+  scoreDisplay = new PIXI.Text('Loading...\n', {font: "25px Arial", fill: "black"});
 
-  healthDisplay = new PIXI.Text('Health: ', {font: "25px Arial", fill: "black"});
+  healthDisplay = new PIXI.Text('Loading...', {font: "25px Arial", fill: "black"});
   healthDisplay.position.set(512-healthDisplay.width,0);
+
+  ammoDisplay = new PIXI.Text('Loading...', {font: "25px Arial", fill: "black"});
+  ammoDisplay.position.set(0,scoreDisplay.height);
 
   healthBar = new PIXI.Graphics();
   healthBar.beginFill(0xFF0000);
@@ -44,6 +48,7 @@ function start(){
   app.stage.addChild(myPlayer);
   app.stage.addChild(scoreDisplay);
   app.stage.addChild(healthDisplay);
+  app.stage.addChild(ammoDisplay);
   app.stage.addChild(healthBar);
 
   app.stage.addChild(pauseDisplay);
@@ -93,6 +98,8 @@ function mainloop(){
     healthDisplay.position.set(512-healthDisplay.width,0);
     healthBar.clear();
     healthBar.drawRect(512-177,25,myPlayer.health*1.77,25);
+
+    ammoDisplay.text = "Ammo: " + myPlayer.ammo;
 
     for (n in app.stage.children){
       obj = app.stage.children[n];

@@ -33,6 +33,8 @@ class Bullet extends PIXI.Sprite {
         if(isIntersecting(stage.children[n],this)){
           createjs.Sound.play(1);
           myPlayer.score++;
+          if(n%3==0)
+            app.stage.addChild(new Ammopack(PIXI.loader.resources["res/img/ammopack.png"].texture, stage.children[n].x, stage.children[n].y));
           app.stage.removeChild(stage.children[n]);
           app.stage.removeChild(this);
         }

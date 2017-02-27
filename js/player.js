@@ -9,6 +9,7 @@ class Player extends PIXI.Sprite {
       this.health = 100;
       this.stopped = false;
       this.frames = 0;
+      this.ammo = 100;
   }
 
   update(stage){
@@ -33,7 +34,8 @@ class Player extends PIXI.Sprite {
         document.keyboard[40] ? 3:
         this.direction;
       if(document.keyboard[32]){
-        if(this.frames>=10){
+        if(this.frames>=10 && this.ammo > 0){
+          this.ammo--;
           var b = new Bullet(PIXI.loader.resources["res/img/bullet.png"].texture, this.direction, this.x, this.y);
           this.frames = 0;
           stage.addChild(b);
