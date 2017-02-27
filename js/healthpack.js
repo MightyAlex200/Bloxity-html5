@@ -7,7 +7,7 @@ class Healthpack extends PIXI.Sprite {
 
   update(stage){
     if (isIntersecting(myPlayer, this)){
-      myPlayer.health += (100-myPlayer.health)/2;
+      myPlayer.health = Math.round(myPlayer.health + (100-myPlayer.health)/2);
       this.parent.removeChild(this);
     }
   }
