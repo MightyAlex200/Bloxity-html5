@@ -7,7 +7,7 @@ class Ammopack extends PIXI.Sprite {
 
   update(stage){
     if (isIntersecting(myPlayer, this)){
-      myPlayer.ammo+=5;
+      myPlayer.ammo=myPlayer.ammo+Math.max(Math.round((100-myPlayer.ammo)/2.5),5);
       this.parent.removeChild(this);
     }
   }
