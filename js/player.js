@@ -35,8 +35,10 @@ class Player extends PIXI.Sprite {
     // If you haven't died
     if (this.dead===false){
       // Move character
-      this.x += document.keyboard[39] ? this.speed:document.keyboard[37] ? -this.speed:0;
-      this.y += document.keyboard[40] ? this.speed:document.keyboard[38] ? -this.speed:0;
+      var xdir = document.keyboard[39] ? this.speed:document.keyboard[37] ? -this.speed:0;
+      var ydir = document.keyboard[40] ? this.speed:document.keyboard[38] ? -this.speed:0;
+      this.x += ((this.x + xdir)>480 || (this.x + xdir)<0) ? 0:xdir;
+      this.y += ((this.y + ydir)>480 || (this.y + ydir)<0) ? 0:ydir;
       // Get direction
       this.direction =
         document.keyboard[37] ? 0:
