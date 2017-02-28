@@ -7,19 +7,14 @@ class Enemy extends PIXI.Sprite {
   }
 
   update(stage){
-    var p;
-    // find player
-    for (var n in stage.children){
-      if (stage.children[n] instanceof Player){
-        p = stage.children[n];
-      }
-    }
 
-    this.x += this.x < p.x ? 1:this.x > p.x ? -1:0;
-    this.y += this.y < p.y ? 1:this.y > p.y ? -1:0;
+    // Move enemy closer to player
+    this.x += this.x < myPlayer.x ? 1:this.x > myPlayer.x ? -1:0;
+    this.y += this.y < myPlayer.y ? 1:this.y > myPlayer.y ? -1:0;
 
-    if(isIntersecting(this,p)){
-      p.health -= 1;
+    // Hurt player on touch
+    if(isIntersecting(this,myPlayer)){
+      myPlayer.health -= 1;
     }
 
   }
