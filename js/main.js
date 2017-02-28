@@ -91,6 +91,8 @@ function mainloop(){
   // Used to tell if escape has just been pressed
   pause = document.keyboard.wasPressed(27) ? !pause:pause;
 
+  // Mute game if 'm' key pressed
+  createjs.Sound.muted = document.keyboard.wasPressed(77) ? !createjs.Sound.muted:createjs.Sound.muted;
 
   // Do game stuff if unpaused
   if(!pause){
