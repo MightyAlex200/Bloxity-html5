@@ -3,28 +3,29 @@ class Player extends PIXI.Sprite {
   constructor(sprite,speed){
       super(sprite);
       this.score = 0;
-      this.position.set(240,240)
+      this.position.set(240,240);
       this.speed = speed || 1;
       this.direction = 0;
       this.health = 100;
       this.stopped = false;
       this.frames = 0;
       this.ammo = 100;
+      this.dead = false;
   }
 
   update(stage){
 
     this.frames++;
 
-    if(this.health <= 0){
-      youdied();
-      this.health = 100000
+    if(this.health <= 0 && !this.dead){
+      youDied();
+      this.dead = true;
       this.stopped = true;
       createjs.Sound.play(2);
       setTimeout(location.reload.bind(location),3000);
     }
 
-    if (this.stopped==false){
+    if (this.stopped===false){
       this.x += document.keyboard[39] ? this.speed:document.keyboard[37] ? -this.speed:0;
       this.y += document.keyboard[40] ? this.speed:document.keyboard[38] ? -this.speed:0;
       this.direction =

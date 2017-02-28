@@ -37,9 +37,9 @@ function start(){
   healthBar.drawRect(512-177,25,177,25);
 
   pauseDisplay = new PIXI.Graphics();
-  pauseDisplay.beginFill(0x000000,.7);
+  pauseDisplay.beginFill(0x000000,0.7);
   pauseDisplay.drawRect(0,0,512,512);
-  pauseDisplayText = new PIXI.Text("The game is paused\nPress esc to resume", {font: "bold 50px Arial", fill: "black"})
+  pauseDisplayText = new PIXI.Text("The game is paused\nPress esc to resume", {font: "bold 50px Arial", fill: "black"});
   pauseDisplayText.position.set(256-pauseDisplayText.width/2, 256-pauseDisplayText.height/2);
 
   backgroundImage = new PIXI.Sprite(PIXI.loader.resources["res/img/background.png"].texture);
@@ -54,11 +54,11 @@ function start(){
   app.stage.addChild(pauseDisplay);
   app.stage.addChild(pauseDisplayText);
 
-  setInterval(()=>{pause = pause?pause:document.hidden;},100)
+  setInterval(()=>{pause = pause?pause:document.hidden;},100);
 
   best = parseInt(getCookie("best"));
 
-  if(isNaN(best)){best=0}
+  if(isNaN(best)){best=0;}
 
   mainloop();
 }
@@ -69,7 +69,7 @@ function mainloop(){
   s=fp? !document.keyboard[27]:document.keyboard[27];
   fp=document.keyboard[27];
 
-  if(s==true && document.keyboard[27] != true){
+  if(s===true && document.keyboard[27] !== true){
     pause = !pause;
   }
 
@@ -82,12 +82,12 @@ function mainloop(){
     enemyframes++;
     healthframes++;
 
-    if(enemyframes>=30){
+    if(enemyframes>=30 && !myPlayer.dead){
       addEnemy();
       enemyframes = 0;
     }
 
-    if(healthframes >= 1800){
+    if(healthframes >= 1800 && !myPlayer.dead){
       addHealthpack();
       healthframes = 0;
     }
@@ -101,7 +101,7 @@ function mainloop(){
 
     ammoDisplay.text = "Ammo: " + myPlayer.ammo;
 
-    for (n in app.stage.children){
+    for (var n in app.stage.children){
       obj = app.stage.children[n];
       if (obj.update) {
         obj.update(app.stage);
@@ -142,9 +142,7 @@ function addHealthpack() {
 
 }
 
-function youdied(){
-  addEnemy = ()=>{};
-  addHealthpack = ()=>{};
+function youDied(){
   app.stage.addChild(new PIXI.Sprite(PIXI.loader.resources["res/img/youdied.png"].texture));
   if(myPlayer.score > best){
     document.cookie="best=" + myPlayer.score;

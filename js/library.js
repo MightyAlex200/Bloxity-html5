@@ -14,7 +14,7 @@ isIntersecting = function(r1, r2) {
 
              (r2.y + r2.height) < r1.y);
 
-}
+};
 
 function getCookie(cname) {
     var name = cname + "=";
@@ -25,7 +25,7 @@ function getCookie(cname) {
         while (c.charAt(0) == ' ') {
             c = c.substring(1);
         }
-        if (c.indexOf(name) == 0) {
+        if (c.indexOf(name) === 0) {
             return c.substring(name.length, c.length);
         }
     }
