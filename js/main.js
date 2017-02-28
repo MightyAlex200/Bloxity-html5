@@ -89,9 +89,8 @@ function start(){
 function mainloop(){
 
   // Used to tell if escape has just been pressed
-  if(document.keyboard.wasPressed(27)){
-    pause = !pause;
-  }
+  pause = document.keyboard.wasPressed(27) ? !pause:pause;
+
 
   // Do game stuff if unpaused
   if(!pause){
