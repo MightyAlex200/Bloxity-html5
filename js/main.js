@@ -11,8 +11,6 @@ var healthframes = 0;
 // This one is used to tell if the game is paused
 var pause = false;
 
-// This is a temporary variable used in telling when the escape key is pressed to pause the game
-var fp = false;
 
 // Load everything and then call the `start` function
 PIXI.loader.add([
@@ -91,11 +89,7 @@ function start(){
 function mainloop(){
 
   // Used to tell if escape has just been pressed
-  // There's probably a better way to do this but I was tired when I wrote this and now I don't understand it
-  s=fp? !document.keyboard[27]:document.keyboard[27];
-  fp=document.keyboard[27];
-
-  if(s===true && document.keyboard[27] !== true){
+  if(document.keyboard.wasPressed(27)){
     pause = !pause;
   }
 
