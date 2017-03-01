@@ -60,6 +60,17 @@ class Player extends PIXI.Sprite {
           stage.addChild(b);
         }
       }
+
+      // If q was pressed
+      if(document.keyboard.wasPressed(81) && this.ammo>50){
+        var temp = app.stage.children.filter((c)=>{return c instanceof Enemy;});
+        // Find all objects in stage
+        for(var e in temp){
+          temp[e].kill(false);
+        }
+        this.ammo -= 50;
+      }
+
     }
   }
 
