@@ -108,8 +108,8 @@ function mainloop(){
     healthframes++;
 
 
-    // If half a second has passed, call `addEnemy` function and reset timer
-    if(enemyframes>=30 && !myPlayer.dead){
+    // If 2 seconds have passed, call `addEnemy` function and reset timer
+    if(enemyframes>=120 && !myPlayer.dead){
       addEnemy();
       enemyframes = 0;
     }
@@ -164,7 +164,8 @@ function addEnemy() {
   app.stage.addChild(new Enemy(
     PIXI.loader.resources["res/img/enemy.png"].texture,
     (randomInt(0,512) * (wall % 2)) + (wall==2 ? 512-32:0),
-    (randomInt(0,512) * (1-(wall % 2))) + (wall==3 ? 512-32:0)
+    (randomInt(0,512) * (1-(wall % 2))) + (wall==3 ? 512-32:0),
+    3
   ));
 
 

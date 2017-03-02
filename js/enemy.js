@@ -1,9 +1,14 @@
 class Enemy extends PIXI.Sprite {
 
-  constructor(sprite,x,y){
+  constructor(sprite,x,y,health){
     super(sprite);
     this.position.set(x,y);
     this.speed = 2;
+    this.maxhealth = health || 2;
+    this.health = this.maxhealth;
+    this.healthbar = new PIXI.Graphics();
+    this.healthbar.beginFill(0xff0000);
+    this.addChild(this.healthbar);
   }
 
   update(stage){
@@ -17,6 +22,18 @@ class Enemy extends PIXI.Sprite {
       myPlayer.health -= 1;
     }
 
+    this.healthbar.clear();
+    if(this.health<this.maxhealth){
+      this.healthbar.drawRect(0,-16,(this.health/this.maxhealth)*this.width,8);
+    }
+
+  }
+
+  hurt(amount,packdrop){
+    this.health-=amount;
+    if(this.health<=0){
+      this.kill(packdrop);
+    }
   }
 
   kill(packdrop){

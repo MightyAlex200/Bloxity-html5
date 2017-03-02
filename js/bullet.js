@@ -1,11 +1,12 @@
 class Bullet extends PIXI.Sprite {
 
-  constructor(sprite,direction,x,y,pen){
+  constructor(sprite,direction,x,y,pen,strength){
     super(sprite);
     this.direction = direction;
     this.position.set(x,y);
     this.speed = 10;
     this.pen = pen;
+    this.strength = strength || 1;
   }
 
   update(){
@@ -39,7 +40,7 @@ class Bullet extends PIXI.Sprite {
         if(isIntersecting(app.stage.children[n],this)){
           // Increse player score
           myPlayer.score++;
-          app.stage.children[n].kill(true);
+          app.stage.children[n].hurt(this.strength,true);
           if(!this.pen){
             // delet this
             app.stage.removeChild(this);
