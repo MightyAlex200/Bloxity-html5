@@ -20,7 +20,9 @@ PIXI.loader.add([
     "res/img/youdied.png",
     "res/img/background.png",
     "res/img/healthpack.png",
-    "res/img/ammopack.png"
+    "res/img/ammopack.png",
+    "res/img/pistol.png",
+    "res/img/revolver.png"
   ]).load(start);
 
 function start(){
@@ -128,7 +130,7 @@ function mainloop(){
     healthBar.drawRect(512-177,25,myPlayer.health*1.77,25);
 
     // Update ammo display
-    ammoDisplay.text = "Ammo: " + myPlayer.ammo;
+    ammoDisplay.text = "Ammo: " + myPlayer.gun.ammo;
 
     // Update everything in the applcation stage
     for (var n in app.stage.children){

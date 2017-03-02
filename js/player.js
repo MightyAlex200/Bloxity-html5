@@ -11,8 +11,9 @@ class Player extends PIXI.Sprite {
       this.health = 100;
       // Timer for gun cooldown
       this.frames = 0;
-      this.ammo = 100;
+      // this.ammo = 100;
       this.dead = false;
+      this.gun = new Pistol();
   }
 
   update(stage){
@@ -46,29 +47,22 @@ class Player extends PIXI.Sprite {
         document.keyboard[39] ? 2:
         document.keyboard[40] ? 3:
         this.direction;
+      // Update gun
+      this.gun.update(this);
       // If pressing space
       if(document.keyboard[32]){
-        // If gun cooldown timer is up and you have ammo
-        if(this.frames>=10 && this.ammo > 0){
-          // Take 1 off ammo
-          this.ammo--;
-          // Spawn bullet
-          var b = new Bullet(PIXI.loader.resources["res/img/bullet.png"].texture, this.direction, this.x, this.y);
-          // Reset gun cooldown timer
-          this.frames = 0;
-          // Add bullet to stage
-          stage.addChild(b);
-        }
+        // Shoot the gun
+        this.gun.shoot(this);
       }
 
       // If q was pressed
-      if(document.keyboard.wasPressed(81) && this.ammo>50){
+      if(document.keyboard.wasPressed(81) && this.gun.ammo>50){
         var temp = app.stage.children.filter((c)=>{return c instanceof Enemy;});
         // Find all objects in stage
         for(var e in temp){
           temp[e].kill(false);
         }
-        this.ammo -= 50;
+        this.gun.ammo -= 50;
       }
 
     }

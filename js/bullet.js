@@ -1,18 +1,19 @@
 class Bullet extends PIXI.Sprite {
 
-  constructor(sprite,direction,x,y){
+  constructor(sprite,direction,x,y,pen){
     super(sprite);
     this.direction = direction;
     this.position.set(x,y);
     this.speed = 10;
+    this.pen = pen;
   }
 
-  update(stage){
+  update(){
 
     // If out of bounds
     if(this.x > 512 || this.x < 0 || this.y < 0 || this.y > 512){
       // delet this
-      stage.removeChild(this);
+      app.stage.removeChild(this);
     }
 
     // Move the bullet
@@ -32,15 +33,17 @@ class Bullet extends PIXI.Sprite {
     }
 
     // For each enemy,
-    for (var n in stage.children){
-      if (stage.children[n] instanceof Enemy){
+    for (var n in app.stage.children){
+      if (app.stage.children[n] instanceof Enemy){
         // If it is touching this,
-        if(isIntersecting(stage.children[n],this)){
+        if(isIntersecting(app.stage.children[n],this)){
           // Increse player score
           myPlayer.score++;
-          stage.children[n].kill(true);
-          // delet this
-          app.stage.removeChild(this);
+          app.stage.children[n].kill(true);
+          if(!this.pen){
+            // delet this
+            app.stage.removeChild(this);
+          }
         }
       }
     }
