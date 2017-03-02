@@ -22,7 +22,8 @@ PIXI.loader.add([
     "res/img/healthpack.png",
     "res/img/ammopack.png",
     "res/img/pistol.png",
-    "res/img/revolver.png"
+    "res/img/revolver.png",
+    "res/img/coin.png"
   ]).load(start);
 
 function start(){

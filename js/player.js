@@ -65,6 +65,17 @@ class Player extends PIXI.Sprite {
         this.gun.ammo -= 50;
       }
 
+      // If touching coin
+      for (var coinnumber in app.stage.children){
+        var coin = app.stage.children[coinnumber];
+        if(coin instanceof Coin){
+          if(isIntersecting(this,coin)){
+            app.stage.removeChild(coin);
+            this.score++;
+          }
+        }
+      }
+
     }
   }
 

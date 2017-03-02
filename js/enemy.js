@@ -43,6 +43,8 @@ class Enemy extends PIXI.Sprite {
     if((randomInt(0,10)===0 || myPlayer.gun.ammo <= 0) && packdrop){
       // Create new ammopack and place it in a random part of the stage
       app.stage.addChild(new Ammopack(PIXI.loader.resources["res/img/ammopack.png"].texture, this.x, this.y));
+    }else{
+      app.stage.addChild(new Coin(PIXI.loader.resources["res/img/coin.png"].texture,this.x,this.y));
     }
     // delet this
     app.stage.removeChild(this);

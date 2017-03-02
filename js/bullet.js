@@ -38,8 +38,6 @@ class Bullet extends PIXI.Sprite {
       if (app.stage.children[n] instanceof Enemy){
         // If it is touching this,
         if(isIntersecting(app.stage.children[n],this)){
-          // Increse player score
-          myPlayer.score++;
           app.stage.children[n].hurt(this.strength,true);
           if(!this.pen){
             // delet this
