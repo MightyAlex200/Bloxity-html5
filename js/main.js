@@ -54,7 +54,8 @@ function start(){
   // Visual representation of health
   healthBar = new PIXI.Graphics();
   healthBar.beginFill(0xFF0000);
-  healthBar.drawRect(512-177,25,177,25);
+  healthBarLength = 177;
+  healthBar.drawRect(512-177,25,healthBarLength,25);
 
   // Transparent overlay to make visible when game is paused
   pauseDisplay = new PIXI.Graphics();
@@ -175,8 +176,9 @@ function mainloop(){
     // Update health display
     healthDisplay.text = "Health: " + myPlayer.health + "/100";
     healthDisplay.position.set(512-healthDisplay.width,0);
+    healthBarLength += healthBarLength>Math.round((myPlayer.health/100)*177) ? -1:healthBarLength<Math.round((myPlayer.health/100)*177) ? 1:0;
     healthBar.clear();
-    healthBar.drawRect(512-177,25,myPlayer.health*1.77,25);
+    healthBar.drawRect(512-177,25,healthBarLength,25);
 
     // Update ammo display
     ammoDisplay.text = "Ammo: " + myPlayer.gun.ammo;

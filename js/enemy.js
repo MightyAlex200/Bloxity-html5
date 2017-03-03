@@ -8,6 +8,7 @@ class Enemy extends PIXI.Sprite {
     this.health = this.maxhealth;
     this.healthbar = new PIXI.Graphics();
     this.healthbar.beginFill(0xff0000);
+    this.healthbarL = this.width;
     this.addChild(this.healthbar);
   }
 
@@ -24,7 +25,8 @@ class Enemy extends PIXI.Sprite {
 
     this.healthbar.clear();
     if(this.health<this.maxhealth){
-      this.healthbar.drawRect(0,-16,(this.health/this.maxhealth)*this.width,8);
+      this.healthbarL += this.healthbarL>Math.round((this.health/this.maxhealth)*this.width) ? -1:this.healthbarL<Math.round((this.health/this.maxhealth)*this.width) ? 1:0;
+      this.healthbar.drawRect(0,-16,this.healthbarL,8);
     }
 
   }
