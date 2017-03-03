@@ -101,8 +101,32 @@ function start(){
 
   storestage.addChild(sh);
 
-  sh.addChild(new StoreOption(new PIXI.Sprite(PIXI.loader.resources["res/img/pistol.png"].texture),new PIXI.Text("Ammo", {font: "bold 32px Arial", fill: "black"})));
-  sh.addChild(new StoreOption(new PIXI.Sprite(PIXI.loader.resources["res/img/revolver.png"].texture), new PIXI.Text("Revolver", {font: "bold 32px Arial", fill: "black"})));
+  sh.addChild(
+    new StoreOption(
+      new PIXI.Sprite(PIXI.loader.resources["res/img/pistol.png"].texture),
+      new PIXI.Text("Ammo", {font: "bold 32px Arial", fill: "black"}),
+      ()=>{
+        storestage.addChild(new Ammopack(
+            PIXI.loader.resources["res/img/ammopack.png"].texture,
+            myPlayer.x,
+            myPlayer.y
+          )
+        );
+      },
+      10
+    )
+  );
+
+  sh.addChild(
+    new StoreOption(
+      new PIXI.Sprite(PIXI.loader.resources["res/img/revolver.png"].texture),
+      new PIXI.Text("Revolver", {font: "bold 32px Arial", fill: "black"}),
+      ()=>{
+        myPlayer.gun = new Revolver();
+      },
+      50
+    )
+  );
 
   // Start game
   mainloop();
