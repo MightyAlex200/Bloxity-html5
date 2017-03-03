@@ -4,6 +4,11 @@ var app = new PIXI.Application(512,512,{backgroundColor: 0xeeeeee});
 // Add application view to page
 document.body.appendChild(app.view);
 
+// Store stage
+var storestage = new PIXI.Container();
+
+instore = false;
+
 // These will be used to keep time
 var enemyframes = 0;
 var healthframes = 0;
@@ -85,6 +90,20 @@ function start(){
   // If no high score present, set to 0
   if(isNaN(best)){best=0;}
 
+  storeText = new PIXI.Text("Store", {font: "bold 32px Arial", fill: "black"});
+  storeText.x = 512/2-storeText.width/2;
+  storeText.y = 32;
+
+  storestage.addChild(storeText);
+
+  sh = new StoreHolder();
+  sh.y = 64;
+
+  storestage.addChild(sh);
+
+  sh.addChild(new StoreOption(new PIXI.Sprite(PIXI.loader.resources["res/img/pistol.png"].texture),new PIXI.Text("Ammo", {font: "bold 32px Arial", fill: "black"})));
+  sh.addChild(new StoreOption(new PIXI.Sprite(PIXI.loader.resources["res/img/revolver.png"].texture), new PIXI.Text("Revolver", {font: "bold 32px Arial", fill: "black"})));
+
   // Start game
   mainloop();
 }
@@ -97,8 +116,13 @@ function mainloop(){
   // Mute game if 'm' key pressed
   createjs.Sound.muted = document.keyboard.wasPressed(77) ? !createjs.Sound.muted:createjs.Sound.muted;
 
-  // Do game stuff if unpaused
-  if(!pause){
+  if(document.keyboard.wasPressed(69)){
+    [app.stage, storestage] = [storestage, app.stage];
+    instore = !instore;
+  }
+
+  // Do game stuff if unpaused and ingame
+  if(!pause && !instore){
 
     // Make sure pause screen is invisible
     pauseDisplay.visible = false;
@@ -147,6 +171,15 @@ function mainloop(){
     pauseDisplay.visible = true;
     pauseDisplayText.parent.addChild(pauseDisplayText);
     pauseDisplayText.visible = true;
+  }
+
+  if(instore){
+    for (var e in app.stage.children){
+      obj = app.stage.children[e];
+      if (obj.update) {
+        obj.update(app.stage);
+      }
+    }
   }
 
   // Render everything
