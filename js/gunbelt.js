@@ -37,6 +37,7 @@ class Gunbelt extends PIXI.Container{
       if(this.guns[gunn] !== undefined){
         this.labels[gunn].visible = true;
         this.ammolabels[gunn].visible = true;
+        this.ammolabels[gunn].parent.addChild(this.ammolabels[gunn]);
         this.ammolabels[gunn].text = this.guns[gunn].ammo;
         if (!this.sprites[gunn]) {
           this.sprites[gunn] = new PIXI.Sprite(this.guns[gunn].texture);

@@ -30,7 +30,9 @@ PIXI.loader.add([
     "res/img/revolver.png",
     "res/img/coin.png",
     "res/img/ammobox.png",
-    "res/img/healthbox.png"
+    "res/img/healthbox.png",
+    "res/img/pipebomb.png",
+    "res/img/explosion.png"
   ]).load(start);
 
 function start(){
@@ -135,6 +137,7 @@ function start(){
     )
   );
 
+
   sh.addChild(
     new StoreOption(
       new PIXI.Sprite(PIXI.loader.resources["res/img/revolver.png"].texture),
@@ -147,6 +150,23 @@ function start(){
     )
   );
 
+  sh.addChild(
+    new StoreOption(
+      new PIXI.Sprite(PIXI.loader.resources["res/img/pipebomb.png"].texture),
+      new PIXI.Text("Pipebomb", {font: "bold 32px Arial", fill: "black"}),
+      ()=>{
+        var playerpipebomb = myPlayer.gunbelt.guns.filter(
+          (x)=>(x instanceof PipeBomb)
+        )[0];
+        if(playerpipebomb){
+          playerpipebomb.ammo++;
+        }else{
+          myPlayer.gunbelt.guns.push(new PipeBomb());
+        }
+      },
+      35
+    )
+  );
 
   // Start game
   mainloop();
