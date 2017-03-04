@@ -3,6 +3,8 @@ class Revolver extends Gun {
     super();
     this.cooldown = 60;
     this.texture = PIXI.loader.resources["res/img/revolver.png"].texture;
+    this.ammo = 25;
+    this.ammomultiplier = 25;
   }
   shoot(player){
       if(this.time>=this.cooldown && this.ammo > 0){

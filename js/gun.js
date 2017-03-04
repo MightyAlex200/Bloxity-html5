@@ -3,6 +3,7 @@ class Gun{
     this.cooldown = 0;
     this.time = 0;
     this.ammo = 100;
+    this.ammomultiplier = 100;
   }
   shoot(player){
       if(this.time>=this.cooldown && this.ammo > 0){
