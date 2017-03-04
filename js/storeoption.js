@@ -1,10 +1,12 @@
 class StoreOption extends PIXI.Graphics {
-  constructor(icon, title, buy, cost){
+  constructor(icon, title, buy, cost, onetime){
     super();
     this.position.set(64,10);
     this.cost = cost;
     this.buy = buy;
     this.isBought = false;
+    this.beenBought = false;
+    this.onetime = onetime;
     this.icon = icon;
     this.addChild(this.icon);
     // this.icon.position.set(64,10);
@@ -22,27 +24,33 @@ class StoreOption extends PIXI.Graphics {
     }else{
       this.mouseOver = false;
     }
+    if((!this.onetime) || (!this.beenBought)){
+      if(this.mouseOver){
+        this.clear();
+        this.beginFill(0xaaaaaa);
+        this.drawRect(-10,0,this.width+20,this.icon.height);
 
-    if(this.mouseOver){
-      this.clear();
-      this.beginFill(0xaaaaaa);
-      this.drawRect(-10,0,this.width+20,this.icon.height);
-
-      if(myPlayer.score>=this.cost){
-        if(document.mouse.isDown){
-          if(!this.isBought){
-            this.buy();
-            this.isBought = true;
-            myPlayer.score -= this.cost;
+        if(myPlayer.score>=this.cost){
+          if(document.mouse.isDown){
+            if(!this.isBought){
+              this.buy();
+              this.isBought = true;
+              this.beenBought = true;
+              myPlayer.score -= this.cost;
+            }
+          }else{
+            this.isBought = false;
           }
-        }else{
-          this.isBought = false;
         }
-      }
 
+      }else{
+        this.clear();
+        this.beginFill(0xffffff);
+        this.drawRect(-10,0,this.width+20,this.icon.height);
+      }
     }else{
       this.clear();
-      this.beginFill(0xffffff);
+      this.beginFill(0x444444);
       this.drawRect(-10,0,this.width+20,this.icon.height);
     }
   }

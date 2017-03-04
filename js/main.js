@@ -125,7 +125,8 @@ function start(){
       ()=>{
         myPlayer.gunbelt.guns.push(new Revolver());
       },
-      50
+      50,
+      true
     )
   );
 
