@@ -28,7 +28,9 @@ PIXI.loader.add([
     "res/img/ammopack.png",
     "res/img/pistol.png",
     "res/img/revolver.png",
-    "res/img/coin.png"
+    "res/img/coin.png",
+    "res/img/ammobox.png",
+    "res/img/healthbox.png"
   ]).load(start);
 
 function start(){
@@ -104,7 +106,7 @@ function start(){
 
   sh.addChild(
     new StoreOption(
-      new PIXI.Sprite(PIXI.loader.resources["res/img/pistol.png"].texture),
+      new PIXI.Sprite(PIXI.loader.resources["res/img/ammobox.png"].texture),
       new PIXI.Text("Ammo", {font: "bold 32px Arial", fill: "black"}),
       ()=>{
         storestage.addChild(new Ammopack(
@@ -113,6 +115,21 @@ function start(){
             myPlayer.y
           )
         );
+      },
+      10
+    )
+  );
+
+  sh.addChild(
+    new StoreOption(
+      new PIXI.Sprite(PIXI.loader.resources["res/img/healthbox.png"].texture),
+      new PIXI.Text("Health", {font: "bold 32px Arial", fill: "black"}),
+      ()=>{
+        storestage.addChild(new Healthpack(
+          PIXI.loader.resources["res/img/healthpack.png"].texture,
+          myPlayer.x,
+          myPlayer.y
+        ));
       },
       10
     )
@@ -129,6 +146,7 @@ function start(){
       true
     )
   );
+
 
   // Start game
   mainloop();
