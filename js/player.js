@@ -13,7 +13,8 @@ class Player extends PIXI.Sprite {
       this.frames = 0;
       // this.ammo = 100;
       this.dead = false;
-      this.gun = new Pistol();
+      this.gunbelt = new Gunbelt();
+      this.gunbelt.guns[0] = new Pistol();
   }
 
   update(stage){
@@ -48,21 +49,21 @@ class Player extends PIXI.Sprite {
         document.keyboard[40] ? 3:
         this.direction;
       // Update gun
-      this.gun.update(this);
+      this.gunbelt.update(this);
       // If pressing space
       if(document.keyboard[32]){
         // Shoot the gun
-        this.gun.shoot(this);
+        this.gunbelt.guns[0].shoot(this);
       }
 
       // If q was pressed
-      if(document.keyboard.wasPressed(81) && this.gun.ammo>50){
+      if(document.keyboard.wasPressed(81) && this.gunbelt.guns[0].ammo>50){
         var temp = app.stage.children.filter((c)=>{return c instanceof Enemy;});
         // Find all objects in stage
         for(var e in temp){
           temp[e].kill(false);
         }
-        this.gun.ammo -= 50;
+        this.gunbelt.guns[0].ammo -= 50;
       }
 
       // If touching coin

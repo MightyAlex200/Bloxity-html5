@@ -42,7 +42,7 @@ class Enemy extends PIXI.Sprite {
     // Play enemy death sound
     createjs.Sound.play(1);
     // 1/10 chance of dropping ammo unless player has no ammo left
-    if((randomInt(0,10)===0 || myPlayer.gun.ammo <= 0) && packdrop){
+    if((randomInt(0,10)===0 || myPlayer.gunbelt.guns[0].ammo <= 0) && packdrop){
       // Create new ammopack and place it in a random part of the stage
       app.stage.addChild(new Ammopack(PIXI.loader.resources["res/img/ammopack.png"].texture, this.x, this.y));
     }else{

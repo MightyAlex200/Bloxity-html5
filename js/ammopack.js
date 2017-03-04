@@ -9,7 +9,7 @@ class Ammopack extends PIXI.Sprite {
     // If touching player
     if (isIntersecting(myPlayer, this)){
       // Increase player ammo
-      myPlayer.gun.ammo=myPlayer.gun.ammo+Math.max(Math.round((100-myPlayer.gun.ammo)/2.5),5);
+      myPlayer.gunbelt.guns[0].ammo=myPlayer.gunbelt.guns[0].ammo+Math.max(Math.round((100-myPlayer.gunbelt.guns[0].ammo)/2.5),5);
       // delet this
       this.parent.removeChild(this);
     }

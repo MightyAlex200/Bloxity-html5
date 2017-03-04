@@ -2,6 +2,7 @@ class Pistol extends Gun {
   constructor(){
     super();
     this.cooldown = 10;
+    this.texture = PIXI.loader.resources["res/img/pistol.png"].texture;
   }
   shoot(player){
       if(this.time>=this.cooldown && this.ammo > 0){

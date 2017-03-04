@@ -123,7 +123,7 @@ function start(){
       new PIXI.Sprite(PIXI.loader.resources["res/img/revolver.png"].texture),
       new PIXI.Text("Revolver", {font: "bold 32px Arial", fill: "black"}),
       ()=>{
-        myPlayer.gun = new Revolver();
+        myPlayer.gunbelt.guns.push(new Revolver());
       },
       50
     )
@@ -181,7 +181,7 @@ function mainloop(){
     healthBar.drawRect(512-177,25,healthBarLength,25);
 
     // Update ammo display
-    ammoDisplay.text = "Ammo: " + myPlayer.gun.ammo;
+    ammoDisplay.text = "Ammo: " + myPlayer.gunbelt.guns[0].ammo;
 
     // Update everything in the applcation stage
     for (var n in app.stage.children){
