@@ -12,6 +12,7 @@ instore = false;
 // These will be used to keep time
 let enemyframes = 0;
 let healthframes = 0;
+let epm = 30;
 
 // This one is used to tell if the game is paused
 let pause = false;
@@ -202,9 +203,10 @@ function mainloop(){
     enemyframes++;
     healthframes++;
 
+    epm+=0.004166666666666667;
 
     // If 2 seconds have passed, call `addEnemy` function and reset timer
-    if(enemyframes>=120 && !myPlayer.dead){
+    if(enemyframes>=(60/epm)*60 && !myPlayer.dead){
       addEnemy();
       enemyframes = 0;
     }
