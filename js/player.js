@@ -37,8 +37,8 @@ class Player extends PIXI.Sprite {
     // If you haven't died
     if (this.dead===false){
       // Move character
-      var xdir = document.keyboard[39] ? this.speed:document.keyboard[37] ? -this.speed:0;
-      var ydir = document.keyboard[40] ? this.speed:document.keyboard[38] ? -this.speed:0;
+      let xdir = document.keyboard[39] ? this.speed:document.keyboard[37] ? -this.speed:0;
+      let ydir = document.keyboard[40] ? this.speed:document.keyboard[38] ? -this.speed:0;
       this.x += ((this.x + xdir)>480 || (this.x + xdir)<0) ? 0:xdir;
       this.y += ((this.y + ydir)>480 || (this.y + ydir)<0) ? 0:ydir;
       // Get direction
@@ -58,17 +58,17 @@ class Player extends PIXI.Sprite {
 
       // If q was pressed
       if(document.keyboard.wasPressed(81) && this.gunbelt.guns[0].ammo>50){
-        var temp = app.stage.children.filter((c)=>{return c instanceof Enemy;});
+        let temp = app.stage.children.filter((c)=>{return c instanceof Enemy;});
         // Find all objects in stage
-        for(var e in temp){
+        for(let e in temp){
           temp[e].kill(false);
         }
         this.gunbelt.guns[0].ammo -= 50;
       }
 
       // If touching coin
-      for (var coinnumber in app.stage.children){
-        var coin = app.stage.children[coinnumber];
+      for (let coinnumber in app.stage.children){
+        let coin = app.stage.children[coinnumber];
         if(coin instanceof Coin){
           if(isIntersecting(this,coin)){
             createjs.Sound.play(4);

@@ -10,7 +10,7 @@ class Gun{
         // Take 1 off ammo
         this.ammo--;
         // Spawn bullet
-        var b = new Bullet(PIXI.loader.resources["res/img/bullet.png"].texture, player.direction, player.x, player.y, false);
+        let b = new Bullet(PIXI.loader.resources["res/img/bullet.png"].texture, player.direction, player.x, player.y, false);
         // Reset gun cooldown timer
         this.time = 0;
         // Add bullet to stage

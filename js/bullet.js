@@ -35,7 +35,7 @@ class Bullet extends PIXI.Sprite {
     }
 
     // For each enemy,
-    for (var n in app.stage.children){
+    for (let n in app.stage.children){
       if (app.stage.children[n] instanceof Enemy){
         // If it is touching this,
         if(isIntersecting(app.stage.children[n],this)){

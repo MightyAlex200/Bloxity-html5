@@ -8,14 +8,14 @@ class PipeBombAmmo extends PIXI.Sprite{
   update(){
     this.timer--;
     if(this.timer<=0){
-      var temp = app.stage.children.filter((c)=>{return c instanceof Enemy;});
-      for(var childn in temp){
-        var child = temp[childn];
+      let temp = app.stage.children.filter((c)=>{return c instanceof Enemy;});
+      for(let childn in temp){
+        let child = temp[childn];
         if(Math.sqrt(((Math.abs(child.x-this.x))^2) + ((Math.abs(child.y-this.y))^2))<=10){
           child.kill();
         }
       }
-      var explosion = app.stage.addChild(new PIXI.Sprite(PIXI.loader.resources["res/img/explosion.png"].texture));
+      let explosion = app.stage.addChild(new PIXI.Sprite(PIXI.loader.resources["res/img/explosion.png"].texture));
       explosion.position.set(this.x-explosion.width/2,this.y-explosion.height/2);
       createjs.Sound.play(5);
       setTimeout(() => {

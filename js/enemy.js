@@ -17,8 +17,8 @@ class Enemy extends PIXI.Sprite {
 
     this.target = myPlayer;
 
-    for(var childn in app.stage.children){
-      var child = app.stage.children[childn];
+    for(let childn in app.stage.children){
+      let child = app.stage.children[childn];
       if(child instanceof PipeBombAmmo){
         this.target = child;
       }

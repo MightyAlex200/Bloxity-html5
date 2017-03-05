@@ -1,20 +1,20 @@
-// Application variable which contains renderer and stage
-var app = new PIXI.Application(512,512,{backgroundColor: 0xeeeeee});
+// Application letiable which contains renderer and stage
+let app = new PIXI.Application(512,512,{backgroundColor: 0xeeeeee});
 
 // Add application view to page
 document.body.appendChild(app.view);
 
 // Store stage
-var storestage = new PIXI.Container();
+let storestage = new PIXI.Container();
 
 instore = false;
 
 // These will be used to keep time
-var enemyframes = 0;
-var healthframes = 0;
+let enemyframes = 0;
+let healthframes = 0;
 
 // This one is used to tell if the game is paused
-var pause = false;
+let pause = false;
 
 
 // Load everything and then call the `start` function
@@ -47,7 +47,7 @@ function start(){
   createjs.Sound.registerSound("res/snd/hurt.wav",7);
   createjs.Sound.registerSound("res/snd/shoot.wav",8);
 
-  // Player variable using Player class in player.js
+  // Player letiable using Player class in player.js
   myPlayer = new Player(PIXI.loader.resources["res/img/player.png"].texture,5);
 
   // Used to display score
@@ -161,7 +161,7 @@ function start(){
       new PIXI.Sprite(PIXI.loader.resources["res/img/pipebomb.png"].texture),
       new PIXI.Text("Pipebomb", {font: "bold 32px Arial", fill: "black"}),
       ()=>{
-        var playerpipebomb = myPlayer.gunbelt.guns.filter(
+        let playerpipebomb = myPlayer.gunbelt.guns.filter(
           (x)=>(x instanceof PipeBomb)
         )[0];
         if(playerpipebomb){
@@ -229,7 +229,7 @@ function mainloop(){
     ammoDisplay.text = "Ammo: " + myPlayer.gunbelt.guns[0].ammo;
 
     // Update everything in the applcation stage
-    for (var n in app.stage.children){
+    for (let n in app.stage.children){
       obj = app.stage.children[n];
       if (obj.update) {
         obj.update(app.stage);
@@ -245,7 +245,7 @@ function mainloop(){
   }
 
   if(instore){
-    for (var e in app.stage.children){
+    for (let e in app.stage.children){
       obj = app.stage.children[e];
       if (obj.update) {
         obj.update(app.stage);
@@ -263,7 +263,7 @@ function mainloop(){
 function addEnemy() {
 
   // Determine from which side is the enemy going to come from?
-  var wall = randomInt(0,4);
+  let wall = randomInt(0,4);
 
   // Create new enemy coming from a random point on that wall and put it in the applcation stage
   app.stage.addChild(new Enemy(

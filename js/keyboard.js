@@ -1,6 +1,6 @@
 document.keyboard = [];
 document.keyboard.wasPressed = (keyCode)=>{
-  var answer = document.keyboard[keyCode];
+  let answer = document.keyboard[keyCode];
   document.keyboard[keyCode] = false;
   return answer;
 };
