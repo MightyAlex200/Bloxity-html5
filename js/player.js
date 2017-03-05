@@ -4,7 +4,7 @@ class Player extends PIXI.Sprite {
       super(sprite);
       this.score = 0;
       // Bring to middle of screen
-      this.position.set(240,240);
+      this.position.set(app.view.width/2-this.width,app.view.height/2-this.height);
       // Most of these are self-explanatory
       this.speed = speed || 1;
       this.direction = 0;
@@ -39,8 +39,8 @@ class Player extends PIXI.Sprite {
       // Move character
       let xdir = document.keyboard[39] ? this.speed:document.keyboard[37] ? -this.speed:0;
       let ydir = document.keyboard[40] ? this.speed:document.keyboard[38] ? -this.speed:0;
-      this.x += ((this.x + xdir)>480 || (this.x + xdir)<0) ? 0:xdir;
-      this.y += ((this.y + ydir)>480 || (this.y + ydir)<0) ? 0:ydir;
+      this.x += ((this.x + xdir)>app.view.width-this.width/2 || (this.x + xdir)<0) ? 0:xdir;
+      this.y += ((this.y + ydir)>app.view.height-this.height/2 || (this.y + ydir)<0) ? 0:ydir;
       // Get direction
       this.direction =
         document.keyboard[37] ? 0:

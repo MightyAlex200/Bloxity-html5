@@ -13,7 +13,7 @@ class Bullet extends PIXI.Sprite {
   update(){
 
     // If out of bounds
-    if(this.x > 512 || this.x < 0 || this.y < 0 || this.y > 512){
+    if(this.x > app.view.width || this.x < 0 || this.y < 0 || this.y > app.stage.height){
       // delet this
       app.stage.removeChild(this);
     }

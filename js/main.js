@@ -1,11 +1,13 @@
 // Application letiable which contains renderer and stage
-let app = new PIXI.Application(512,512,{backgroundColor: 0xeeeeee});
+let app = new PIXI.Application(1920,1080,{backgroundColor: 0xeeeeee});
 
 // Add application view to page
 document.body.appendChild(app.view);
 
 // Store stage
 let storestage = new PIXI.Container();
+storestage.width = app.stage.width;
+storestage.height = app.stage.height;
 
 instore = false;
 
@@ -56,7 +58,6 @@ function start(){
 
   // Used to display health
   healthDisplay = new PIXI.Text('Loading...', {font: "25px Arial", fill: "black"});
-  healthDisplay.position.set(512-healthDisplay.width,0);
 
   // Used to display ammo
   ammoDisplay = new PIXI.Text('Loading...', {font: "25px Arial", fill: "black"});
@@ -71,14 +72,15 @@ function start(){
   // Transparent overlay to make visible when game is paused
   pauseDisplay = new PIXI.Graphics();
   pauseDisplay.beginFill(0x000000,0.7);
-  pauseDisplay.drawRect(0,0,512,512);
+  pauseDisplay.drawRect(0,0,app.view.width,app.view.height);
 
   // Text to display when game is paused
   pauseDisplayText = new PIXI.Text("The game is paused\nPress esc to resume", {font: "bold 50px Arial", fill: "black"});
-  pauseDisplayText.position.set(256-pauseDisplayText.width/2, 256-pauseDisplayText.height/2);
+  pauseDisplayText.position.set(app.view.width/2-pauseDisplayText.width/2, app.view.height/2-pauseDisplayText.height/2);
 
   // Background image to tell the player what keys to press
   backgroundImage = new PIXI.Sprite(PIXI.loader.resources["res/img/background.png"].texture);
+  backgroundImage.scale.set(app.view.width/512, app.view.height/512);
 
   // Add everything we just created to the application stage
 
@@ -103,7 +105,7 @@ function start(){
   if(isNaN(best)){best=0;}
 
   storeText = new PIXI.Text("Store", {font: "bold 32px Arial", fill: "black"});
-  storeText.x = 512/2-storeText.width/2;
+  storeText.x = app.view.width/2-storeText.width/2;
   storeText.y = 32;
 
   storestage.addChild(storeText);
@@ -181,6 +183,30 @@ function start(){
 
 function mainloop(){
 
+  if(!app.view.style.width){
+    app.view.style.width=innerWidth;
+    app.view.style.height=innerHeight;
+  }
+
+  let w = parseInt(app.view.style.width);
+  let h = parseInt(app.view.style.height);
+
+  if(w<innerWidth){
+    w+=Math.min(5,innerWidth-w);
+  }else if(w>innerWidth){
+    w-=Math.min(5,w-innerWidth);
+  }
+
+  if(h<innerHeight){
+    h+=Math.min(5,innerHeight-h);
+  }else if(h>innerHeight){
+    h-=Math.min(5,h-innerHeight);
+  }
+
+  app.view.style.width = w + 'px';
+  app.view.style.height = h + 'px';
+
+
   // Used to tell if escape has just been pressed
   pause = document.keyboard.wasPressed(27) ? !pause:pause;
 
@@ -222,10 +248,10 @@ function mainloop(){
 
     // Update health display
     healthDisplay.text = "Health: " + myPlayer.health + "/100";
-    healthDisplay.position.set(512-healthDisplay.width,0);
+    healthDisplay.position.set(app.view.width-healthDisplay.width,0);
     healthBarLength += healthBarLength>Math.round((myPlayer.health/100)*177) ? -1:healthBarLength<Math.round((myPlayer.health/100)*177) ? 1:0;
     healthBar.clear();
-    healthBar.drawRect(512-177,25,healthBarLength,25);
+    healthBar.drawRect(app.view.width-177,25,healthBarLength,25);
 
     // Update ammo display
     ammoDisplay.text = "Ammo: " + myPlayer.gunbelt.guns[0].ammo;
@@ -270,8 +296,8 @@ function addEnemy() {
   // Create new enemy coming from a random point on that wall and put it in the applcation stage
   app.stage.addChild(new Enemy(
     PIXI.loader.resources["res/img/enemy.png"].texture,
-    (randomInt(0,512) * (wall % 2)) + (wall==2 ? 512-32:0),
-    (randomInt(0,512) * (1-(wall % 2))) + (wall==3 ? 512-32:0),
+    (randomInt(0,app.view.width) * (wall % 2)) + (wall==2 ? app.view.width-32:0),
+    (randomInt(0,app.view.height) * (1-(wall % 2))) + (wall==3 ? app.view.height-32:0),
     3
   ));
 
@@ -282,15 +308,16 @@ function addHealthpack() {
 
   // Put new healthpack in random place in application stage
   app.stage.addChild(new Healthpack(PIXI.loader.resources["res/img/healthpack.png"].texture,
-    randomInt(0,512),
-    randomInt(0,512)
+    randomInt(0,app.stage.width),
+    randomInt(0,app.stage.height)
   ));
 
 }
 
 function youDied(){
   // Display death screen
-  app.stage.addChild(new PIXI.Sprite(PIXI.loader.resources["res/img/youdied.png"].texture));
+  ds = app.stage.addChild(new PIXI.Sprite(PIXI.loader.resources["res/img/youdied.png"].texture));
+  ds.scale.set(app.view.width/512, app.view.height/512);
   // Write high score cookie
   if(myPlayer.score > best){
     document.cookie="best=" + myPlayer.score;
@@ -301,5 +328,5 @@ function youDied(){
   // Make it white
   scoreDisplay.setStyle({fill:"white"});
   // Put it in the center of the screen
-  scoreDisplay.position.set(256-scoreDisplay.width/2,341);
+  scoreDisplay.position.set(app.view.width/2-scoreDisplay.width/2,this.height);
 }

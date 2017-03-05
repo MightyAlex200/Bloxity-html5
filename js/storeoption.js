@@ -1,7 +1,6 @@
 class StoreOption extends PIXI.Graphics {
   constructor(icon, title, buy, cost, onetime){
     super();
-    this.position.set(64,10);
     this.cost = cost;
     this.buy = buy;
     this.isBought = false;
@@ -17,6 +16,7 @@ class StoreOption extends PIXI.Graphics {
     this.beginFill(0xaaaaaa);
     this.drawRect(-10,0,this.width+20,this.icon.height);
     this.mouseOver = false;
+    this.position.set(app.view.width/2-this.width/2,10);
   }
   update(){
     if(((document.mouse.x > this.x) && (document.mouse.x<(this.x+this.width))) && ((document.mouse.y>(this.y+this.parent.y)) && (document.mouse.y<((this.y+this.parent.y)+this.height)))){
