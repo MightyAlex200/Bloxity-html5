@@ -183,9 +183,13 @@ function start(){
       new PIXI.Sprite(PIXI.loader.resources["res/img/ar15.png"].texture),
       new PIXI.Text("AR15", {font: "bold 32px Arial", fill: "black"}),
       ()=>{
-        myPlayer.gunbelt.guns.push(new AR15());
+        myPlayer.gunbelt.guns.push(new AR15()
+
+
+         );
       },
-      175
+      175,
+      true
     )
   );
 
