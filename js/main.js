@@ -35,7 +35,8 @@ PIXI.loader.add([
     "res/img/ammobox.png",
     "res/img/healthbox.png",
     "res/img/pipebomb.png",
-    "res/img/explosion.png"
+    "res/img/explosion.png",
+    "res/img/ar15.png"
   ]).load(start);
 
 function start(){
@@ -177,6 +178,17 @@ function start(){
     )
   );
 
+  sh.addChild(
+    new StoreOption(
+      new PIXI.Sprite(PIXI.loader.resources["res/img/ar15.png"].texture),
+      new PIXI.Text("AR15", {font: "bold 32px Arial", fill: "black"}),
+      ()=>{
+        myPlayer.gunbelt.guns.push(new AR15());
+      },
+      175
+    )
+  );
+
   // Start game
   mainloop();
 }
@@ -254,7 +266,7 @@ function mainloop(){
     healthBar.drawRect(app.view.width-177,25,healthBarLength,25);
 
     // Update ammo display
-    ammoDisplay.text = "Ammo: " + myPlayer.gunbelt.guns[0].ammo;
+    ammoDisplay.text = "Ammo: " + myPlayer.gunbelt.guns[0].ammo + "\nClip: " + myPlayer.gunbelt.guns[0].clip;
 
     // Update everything in the applcation stage
     for (let n in app.stage.children){

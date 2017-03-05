@@ -3,6 +3,7 @@ class PipeBomb extends Gun {
     super();
     this.texture = PIXI.loader.resources["res/img/pipebomb.png"].texture;
     this.ammo = 1;
+    this.clip = 0;
     this.ammomultiplier = 0;
   }
   shoot(){

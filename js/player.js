@@ -15,6 +15,7 @@ class Player extends PIXI.Sprite {
       this.dead = false;
       this.gunbelt = new Gunbelt();
       this.gunbelt.guns[0] = new Pistol();
+      this.reloading = false;
   }
 
   update(stage){
@@ -50,6 +51,20 @@ class Player extends PIXI.Sprite {
         this.direction;
       // Update gun
       this.gunbelt.update(this);
+      if(document.keyboard.wasPressed(82) && !this.reloading){
+        let gun = this.gunbelt.guns[0];
+        if(gun.ammo>0){
+          createjs.Sound.play(3);
+          gun.clip = 0;
+          this.reloading = true;
+          setTimeout(()=>{
+            let takeaway = Math.min(Math.min(gun.ammo, gun.clipsize),gun.clipsize-gun.clip);
+            gun.ammo -= takeaway;
+            gun.clip += takeaway;
+            this.reloading = false;
+          },1000);
+        }
+      }
       // If pressing space
       if(document.keyboard[32]){
         // Shoot the gun

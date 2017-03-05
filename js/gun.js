@@ -3,12 +3,14 @@ class Gun{
     this.cooldown = 0;
     this.time = 0;
     this.ammo = 100;
+    this.clip = 16;
+    this.clipsize = 16;
     this.ammomultiplier = 100;
   }
   shoot(player){
-      if(this.time>=this.cooldown && this.ammo > 0){
+      if(this.time>=this.cooldown && this.clip > 0){
         // Take 1 off ammo
-        this.ammo--;
+        this.clip--;
         // Spawn bullet
         let b = new Bullet(PIXI.loader.resources["res/img/bullet.png"].texture, player.direction, player.x, player.y, false);
         // Reset gun cooldown timer
