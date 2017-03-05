@@ -10,13 +10,23 @@ class Enemy extends PIXI.Sprite {
     this.healthbar.beginFill(0xff0000);
     this.healthbarL = this.width;
     this.addChild(this.healthbar);
+    this.target = myPlayer;
   }
 
   update(stage){
 
+    this.target = myPlayer;
+
+    for(var childn in app.stage.children){
+      var child = app.stage.children[childn];
+      if(child instanceof PipeBombAmmo){
+        this.target = child;
+      }
+    }
+
     // Move enemy closer to player
-    this.x += this.x < myPlayer.x ? 1:this.x > myPlayer.x ? -1:0;
-    this.y += this.y < myPlayer.y ? 1:this.y > myPlayer.y ? -1:0;
+    this.x += this.x < this.target.x ? 1:this.x > this.target.x ? -1:0;
+    this.y += this.y < this.target.y ? 1:this.y > this.target.y ? -1:0;
 
     // Hurt player on touch
     if(isIntersecting(this,myPlayer)){
