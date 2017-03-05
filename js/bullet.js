@@ -7,6 +7,7 @@ class Bullet extends PIXI.Sprite {
     this.speed = 10;
     this.pen = pen;
     this.strength = strength || 1;
+    createjs.Sound.play(8);
   }
 
   update(){

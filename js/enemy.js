@@ -42,6 +42,7 @@ class Enemy extends PIXI.Sprite {
   }
 
   hurt(amount,packdrop){
+    createjs.Sound.play(7);
     this.health-=amount;
     if(this.health<=0){
       this.kill(packdrop);

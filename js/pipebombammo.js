@@ -17,6 +17,7 @@ class PipeBombAmmo extends PIXI.Sprite{
       }
       var explosion = app.stage.addChild(new PIXI.Sprite(PIXI.loader.resources["res/img/explosion.png"].texture));
       explosion.position.set(this.x-explosion.width/2,this.y-explosion.height/2);
+      createjs.Sound.play(5);
       setTimeout(() => {
         explosion.parent.removeChild(explosion);
       }, 500);

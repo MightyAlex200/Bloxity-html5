@@ -71,6 +71,7 @@ class Player extends PIXI.Sprite {
         var coin = app.stage.children[coinnumber];
         if(coin instanceof Coin){
           if(isIntersecting(this,coin)){
+            createjs.Sound.play(4);
             app.stage.removeChild(coin);
             this.score++;
           }

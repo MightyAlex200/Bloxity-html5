@@ -38,8 +38,14 @@ PIXI.loader.add([
 function start(){
 
   // Register these sounds under the id 1 and 2
-  createjs.Sound.registerSound("res/snd/uuhhh.mp3", 1);
+  createjs.Sound.registerSound("res/snd/uuhhh.wav", 1);
   createjs.Sound.registerSound("res/snd/death.mp3", 2);
+  createjs.Sound.registerSound("res/snd/ammo.wav",3);
+  createjs.Sound.registerSound("res/snd/coin.wav",4);
+  createjs.Sound.registerSound("res/snd/explosion.wav",5);
+  createjs.Sound.registerSound("res/snd/health.wav",6);
+  createjs.Sound.registerSound("res/snd/hurt.wav",7);
+  createjs.Sound.registerSound("res/snd/shoot.wav",8);
 
   // Player variable using Player class in player.js
   myPlayer = new Player(PIXI.loader.resources["res/img/player.png"].texture,5);
