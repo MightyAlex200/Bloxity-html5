@@ -2,9 +2,12 @@ class StoreOption extends Button {
   constructor(icon, title, buy, cost, onetime){
     super(title, ()=>{
       if(myPlayer.score>=this.cost && (!this.onetime || !this.beenBought)){
-            this.buy();
-            this.beenBought = true;
-            myPlayer.score -= this.cost;
+        this.buy();
+        this.beenBought = true;
+        myPlayer.score -= this.cost;
+        createjs.Sound.play(11);
+      }else{
+        createjs.Sound.play(12);
       }
     });
     this.cost = cost;
@@ -35,6 +38,5 @@ class StoreOption extends Button {
       this.beginFill(0x444444);
       this.drawRect(-10,0,this.width+20,this.icon.height);
     }
-
   }
 }

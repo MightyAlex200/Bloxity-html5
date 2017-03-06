@@ -56,6 +56,10 @@ function start(){
   createjs.Sound.registerSound("res/snd/health.wav",6);
   createjs.Sound.registerSound("res/snd/hurt.wav",7);
   createjs.Sound.registerSound("res/snd/shoot.wav",8);
+  createjs.Sound.registerSound("res/snd/clipempty.wav",9);
+  createjs.Sound.registerSound("res/snd/error.wav",10);
+  createjs.Sound.registerSound("res/snd/click.wav",11);
+  createjs.Sound.registerSound("res/snd/cantbuy.wav",12);
 
   // Player letiable using Player class in player.js
   myPlayer = new Player(PIXI.loader.resources["res/img/player.png"].texture,5);
@@ -205,6 +209,7 @@ function start(){
     ()=>{
       [app.stage, menustage] = [menustage, app.stage];
       inmenu = false;
+      createjs.Sound.play(11);
     }
   );
   b.position.set(b.x,500);
@@ -321,6 +326,7 @@ function mainloop(){
       app.stage.addChild(new PIXI.Sprite(PIXI.loader.resources["res/img/exception.png"].texture));
       app.stage.addChild(new PIXI.Text("Error.", {font: "bold 120px Noto Sans"})).position.set(480,0);
       app.stage.addChild(new PIXI.Text(e, {font: "bold 64px Noto Sans", fill: "black", wordWrap: true, wordWrapWidth: 960})).position.set(480,240);
+      createjs.Sound.play(10);
       let func = ()=>{
         app.view.style.width=innerWidth;
         app.view.style.height=innerHeight;

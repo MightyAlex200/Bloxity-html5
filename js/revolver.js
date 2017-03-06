@@ -9,15 +9,6 @@ class Revolver extends Gun {
     this.ammomultiplier = 25;
   }
   shoot(player){
-      if(this.time>=this.cooldown && this.clip > 0){
-        // Take 1 off ammo
-        this.clip--;
-        // Spawn bullet
-        let b = new Bullet(PIXI.loader.resources["res/img/bullet.png"].texture, player.direction, player.x, player.y, true);
-        // Reset gun cooldown timer
-        this.time = 0;
-        // Add bullet to stage
-        app.stage.addChild(b);
-      }
+    super.shoot(player, true);
   }
 }
