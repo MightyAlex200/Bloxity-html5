@@ -4,8 +4,8 @@ document.mouse = {
   isDown: false
 };
 document.onmousemove = (e) => {
-  document.mouse.x = ((e.clientX+1)/innerWidth)*app.stage.width;
-  document.mouse.y = ((e.clientY+1)/innerHeight)*app.stage.height;
+  document.mouse.x = ((e.clientX+1)/innerWidth)*app.view.width;
+  document.mouse.y = ((e.clientY+1)/innerHeight)*app.view.height;
 };
 
 document.onmousedown = (e) => {
