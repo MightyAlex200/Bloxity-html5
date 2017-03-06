@@ -6,10 +6,12 @@ document.body.appendChild(app.view);
 
 // Store stage
 let storestage = new PIXI.Container();
-storestage.width = app.stage.width;
-storestage.height = app.stage.height;
 
-instore = false;
+let menustage = new PIXI.Container();
+
+let instore = false;
+
+let inmenu = true;
 
 // These will be used to keep time
 let enemyframes = 0;
@@ -193,6 +195,18 @@ function start(){
     )
   );
 
+  menustage.addChild(
+    new Button(
+      new PIXI.Text("Play", {font: "bold 32px Arial", fill: "black"}),
+      ()=>{
+        [app.stage, menustage] = [menustage, app.stage];
+        inmenu = false;
+      }
+    )
+  );
+
+  [app.stage, menustage] = [menustage, app.stage];
+
   // Start game
   mainloop();
 }
@@ -229,13 +243,13 @@ function mainloop(){
   // Mute game if 'm' key pressed
   createjs.Sound.muted = document.keyboard.wasPressed(77) ? !createjs.Sound.muted:createjs.Sound.muted;
 
-  if(document.keyboard.wasPressed(69)){
+  if(document.keyboard.wasPressed(69) && !inmenu){
     [app.stage, storestage] = [storestage, app.stage];
     instore = !instore;
   }
 
   // Do game stuff if unpaused and ingame
-  if(!pause && !instore){
+  if(!pause && !instore && !inmenu){
 
     // Make sure pause screen is invisible
     pauseDisplay.visible = false;
@@ -288,7 +302,16 @@ function mainloop(){
     pauseDisplayText.visible = true;
   }
 
-  if(instore){
+  if(instore && !inmenu){
+    for (let e in app.stage.children){
+      obj = app.stage.children[e];
+      if (obj.update) {
+        obj.update(app.stage);
+      }
+    }
+  }
+
+  if(inmenu){
     for (let e in app.stage.children){
       obj = app.stage.children[e];
       if (obj.update) {
