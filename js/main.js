@@ -41,7 +41,8 @@ PIXI.loader.add([
     "res/img/pipebomb.png",
     "res/img/explosion.png",
     "res/img/ar15.png",
-    "res/img/exception.png"
+    "res/img/exception.png",
+    "res/img/logo.png"
   ]).load(start);
 
 function start(){
@@ -198,14 +199,17 @@ function start(){
     )
   );
 
+  menustage.addChild(new PIXI.Sprite(PIXI.loader.resources["res/img/logo.png"].texture));
+  let b = new Button(
+    new PIXI.Text("Play", {font: "bold 32px Arial", fill: "black"}),
+    ()=>{
+      [app.stage, menustage] = [menustage, app.stage];
+      inmenu = false;
+    }
+  );
+  b.position.set(b.x,500);
   menustage.addChild(
-    new Button(
-      new PIXI.Text("Play", {font: "bold 32px Arial", fill: "black"}),
-      ()=>{
-        [app.stage, menustage] = [menustage, app.stage];
-        inmenu = false;
-      }
-    )
+    b
   );
 
   [app.stage, menustage] = [menustage, app.stage];
@@ -216,28 +220,9 @@ function start(){
 
 function mainloop(){
 
-  if(!app.view.style.width){
-    app.view.style.width=innerWidth;
-    app.view.style.height=innerHeight;
-  }
+  app.view.style.width=innerWidth;
+  app.view.style.height=innerHeight;
 
-  let w = parseInt(app.view.style.width);
-  let h = parseInt(app.view.style.height);
-
-  if(w<innerWidth){
-    w+=Math.min(5,innerWidth-w);
-  }else if(w>innerWidth){
-    w-=Math.min(5,w-innerWidth);
-  }
-
-  if(h<innerHeight){
-    h+=Math.min(5,innerHeight-h);
-  }else if(h>innerHeight){
-    h-=Math.min(5,h-innerHeight);
-  }
-
-  app.view.style.width = w + 'px';
-  app.view.style.height = h + 'px';
 
 
   // Used to tell if escape has just been pressed
