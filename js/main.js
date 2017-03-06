@@ -9,6 +9,8 @@ let storestage = new PIXI.Container();
 
 let menustage = new PIXI.Container();
 
+let exceptionstage = new PIXI.Container();
+
 let instore = false;
 
 let inmenu = true;
@@ -38,7 +40,8 @@ PIXI.loader.add([
     "res/img/healthbox.png",
     "res/img/pipebomb.png",
     "res/img/explosion.png",
-    "res/img/ar15.png"
+    "res/img/ar15.png",
+    "res/img/exception.png"
   ]).load(start);
 
 function start(){
@@ -324,7 +327,23 @@ function mainloop(){
   app.render();
 
   // Call mainloop 60 times/second
-  window.requestAnimationFrame(mainloop);
+  requestAnimationFrame(()=>{
+    try{
+      mainloop();
+    }
+    catch(e){
+      app.stage = exceptionstage;
+      app.stage.addChild(new PIXI.Sprite(PIXI.loader.resources["res/img/exception.png"].texture));
+      app.stage.addChild(new PIXI.Text("Error.", {font: "bold 120px Noto Sans"})).position.set(480,0);
+      app.stage.addChild(new PIXI.Text(e, {font: "bold 64px Noto Sans", fill: "black", wordWrap: true, wordWrapWidth: 960})).position.set(480,240);
+      let func = ()=>{
+        app.view.style.width=innerWidth;
+        app.view.style.height=innerHeight;
+        requestAnimationFrame(func);
+      };
+      requestAnimationFrame(func);
+    }
+  });
 }
 
 function addEnemy() {
